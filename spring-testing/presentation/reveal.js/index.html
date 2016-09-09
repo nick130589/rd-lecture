@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/sky.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+<!-- <section data-markdown="slides.md"  
+         data-separator="^\n\n\n"  
+         data-separator-vertical="^\n\n"  
+         data-separator-notes="^Note:"  
+         data-charset="iso-8859-15">
+</section>	
+ -->
+<!-- 
+<section>
+    <p class="fragment grow">grow</p>
+    <p class="fragment shrink">shrink</p>
+    <p class="fragment fade-out">fade-out</p>
+    <p class="fragment fade-up">fade-up (also down, left and right!)</p>
+    <p class="fragment current-visible">visible only once</p>
+    <p class="fragment highlight-current-blue">blue only once</p>
+    <p class="fragment highlight-red">highlight-red</p>
+    <p class="fragment highlight-green">highlight-green</p>
+    <p class="fragment highlight-blue">highlight-blue</p>
+</section>
+
+ -->
+<section data-markdown
+		 data-separator="^\n\n\n"  
+         data-separator-vertical="^\n\n"
+         data-separator-notes="^Note:">
+    <script type="text/template">
+# Testing in Spring and beyond
+<!-- .slide: data-transition="zoom-out" -->
+
+
+
+## Spring simplifies unit testing
+- Dependency Injection <!-- .element: class="fragment fade-up" data-fragment-index="1" -->
+- Layered architecture <!-- .element: class="fragment fade-up" data-fragment-index="1" -->
+
+
+
+## Build you own project-specific test framework
+- Mock factories
+- Test data sharing
+- Custom matchers
+
+
+
+## Automate boilerplate tests
+- JUnit build-in Parameterized runner
+- DataProvider runner
+
+
+```java 
+@RunWith(Parameterized.class)
+public class SearchResponseInstantiationProblemHandlerTest {
+    private String jsonFilename;
+    private Class<?> expectedClass;
+
+    @Parameterized.Parameters(name= "content of <{0}> should deserialize into <{1}>")
+    public static Iterable<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {"find_train.json", FindTrainResponse.class},
+                {"find_station.json", FindStationResponse.class},
+                {"error.json", ErrorSearchResponse.class}
+        });
+    }
+
+    public SearchResponseInstantiationProblemHandlerTest(String jsonFilename, Class<?> expectedClass) {
+        this.jsonFilename = jsonFilename;
+        this.expectedClass = expectedClass;
+    }
+
+    @Test
+    public void testDeserialize() throws IOException {
+		...
+        assertThat(response, instanceOf(expectedClass));
+		...
+    }
+```
+
+
+
+## Use maven profiles
+
+
+
+	</script>
+</section>
+
+
+
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+			    // Display controls in the bottom right corner
+			    controls: false,
+
+			    // Display a presentation progress bar
+			    progress: true,
+
+			    // Display the page number of the current slide
+			    slideNumber: true,
+
+			    // Push each slide change to the browser history
+			    history: true,
+
+			    // Vertical centering of slides
+			    center: true,
+
+			    // Enable slide navigation via mouse wheel
+			    mouseWheel: true,
+
+			    // Transition style
+			    transition: 'convex', // none/fade/slide/convex/concave/zoom
+
+			    // Transition speed
+			    transitionSpeed: 'default', // default/fast/slow
+
+			    // Transition style for full page slide backgrounds
+			    backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+			    // Number of slides away from the current that are visible
+			    viewDistance: 3,
+
+			    zoomKey: 'ctrl',
+
+			    // The "normal" size of the presentation, aspect ratio will be preserved
+			    // when the presentation is scaled to fit different resolutions. Can be
+			    // specified using percentage units.
+			    width: "100%", //960,
+			    height: "70%",
+
+			    // Factor of the display size that should remain empty around the content
+			    margin: 0.001,
+
+			    // Bounds for smallest/largest possible scale to apply to content
+			    minScale: 0.2,
+			    maxScale: 1.5,
+
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+        			{ src: 'plugin/zoom-js/zoom.js', async: true },					
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
