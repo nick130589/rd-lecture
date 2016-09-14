@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Testing in Spring and beyond</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/sky.css">
@@ -63,15 +63,15 @@
 
 
 ## Build you own project-specific test framework
-- Mock factories
-- Test data sharing
-- Custom matchers
+- Factories for mock entities (TODO: demo)
+- Test data sharing (TODO: demo)
+- Custom matchers (TODO: demo)
 
 
 
 ## Automate boilerplate tests
-- JUnit build-in Parameterized runner
-- DataProvider runner
+- JUnit build-in Parameterized runner (TODO: demo)
+- DataProvider runner (TODO: demo)
 
 
 ```java 
@@ -96,15 +96,30 @@ public class SearchResponseInstantiationProblemHandlerTest {
 
     @Test
     public void testDeserialize() throws IOException {
-		...
+        ...
         assertThat(response, instanceOf(expectedClass));
-		...
+        ...
     }
 ```
 
 
 
 ## Use maven profiles
+
+
+
+
+## Code coverage
+
+
+
+
+
+## What to test
+
+
+
+
 
 
 
@@ -124,7 +139,7 @@ public class SearchResponseInstantiationProblemHandlerTest {
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 			    // Display controls in the bottom right corner
-			    controls: false,
+			    controls: true,
 
 			    // Display a presentation progress bar
 			    progress: true,
@@ -159,10 +174,10 @@ public class SearchResponseInstantiationProblemHandlerTest {
 			    // when the presentation is scaled to fit different resolutions. Can be
 			    // specified using percentage units.
 			    width: "100%", //960,
-			    height: "70%",
+			    height: "100%",
 
 			    // Factor of the display size that should remain empty around the content
-			    margin: 0.001,
+			    margin: 0.1,
 
 			    // Bounds for smallest/largest possible scale to apply to content
 			    minScale: 0.2,
