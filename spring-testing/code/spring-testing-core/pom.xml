@@ -12,8 +12,5 @@
 
     <artifactId>spring-testing-core</artifactId>
     <packaging>jar</packaging>
-
-    <dependencies>
-
-    </dependencies>
+    
 </project>

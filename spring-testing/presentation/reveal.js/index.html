@@ -7,7 +7,7 @@
 		<title>Testing in Spring and beyond</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/sky.css">
+		<link id="theme" rel="stylesheet" href="css/theme/solarized.css">
 
 		<!-- Theme used for syntax highlighting of code -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -46,13 +46,40 @@
 </section>
 
  -->
+
+<section id="themes">
+	<p>
+		Themes: <br>
+		<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
+		<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
+	</p>
+</section>
+
 <section data-markdown
 		 data-separator="^\n\n\n"  
          data-separator-vertical="^\n\n"
          data-separator-notes="^Note:">
     <script type="text/template">
 # Testing in Spring and beyond
+![](http://forum.spring.io/core/image.php?userid=11676&dateline=1378756903)
 <!-- .slide: data-transition="zoom-out" -->
+
+
+##Tools
+- JUnit
+- Mockito (+PowerMock)
+- JMockit
+- Hamcrest
 
 
 
@@ -62,14 +89,16 @@
 
 
 
-## Build you own project-specific test framework
-- Factories for mock entities (TODO: demo)
-- Test data sharing (TODO: demo)
-- Custom matchers (TODO: demo)
+##Mocking
 
 
 
-## Automate boilerplate tests
+##To mock or not to mock?
+
+
+
+## Test data source
+- Inline in test method
 - JUnit build-in Parameterized runner (TODO: demo)
 - DataProvider runner (TODO: demo)
 
@@ -84,7 +113,6 @@ public class SearchResponseInstantiationProblemHandlerTest {
     public static Iterable<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"find_train.json", FindTrainResponse.class},
-                {"find_station.json", FindStationResponse.class},
                 {"error.json", ErrorSearchResponse.class}
         });
     }
@@ -101,10 +129,61 @@ public class SearchResponseInstantiationProblemHandlerTest {
         ...
     }
 ```
+<!-- .element: class="_stretch" -->
 
 
 
-## Use maven profiles
+## Project-specific test framework
+- Factories for example data (TODO: demo)
+- Test data sharing between SUT and collaborators (TODO: demo)
+- Custom matchers (TODO: demo)
+
+
+
+##Test code reuse
+- Create separate project with test-related code
+- Package test classes into test-jar
+
+
+###Create separate project with test-related code
+- Pros: can be used as any other maven dependecy without any problem
+- Cons: requires creating a dedicated project for test-related code
+
+
+###Package test classes into test-jar
+- Pros: simplicity
+- Cons: no transitive test dependencies, need to manually add test-scoped deps
+```xml
+<plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-jar-plugin</artifactId>
+	<version>3.0.2</version>
+	<executions>
+	  <execution>
+	    <goals>
+	      <goal>test-jar</goal>
+	    </goals>
+	  </execution>
+	</executions>
+</plugin>
+```
+
+
+###Use created test-jar
+```xml
+<dependency>
+  <groupId>groupId</groupId>
+  <artifactId>artifactId</artifactId>
+  <type>test-jar</type>
+  <version>version</version>
+  <scope>test</scope>
+</dependency>
+```
+
+
+
+
+## Maven profiles
 
 
 
@@ -118,10 +197,35 @@ public class SearchResponseInstantiationProblemHandlerTest {
 ## What to test
 
 
+## How to test
+- isolation
+- single test method - single SUT execution (preffered)
 
 
 
+##Name matters (TODO: demo)
+```java
+public class JustTest {
 
+    @Test
+    public void WTF() {
+    	...
+    }
+}
+```
+
+
+
+###Possible naming strategies (TODO: demo)
+- **'test' + [feature of SUT]**, e.g.
+ - testCalculateSqrtOfPositiveInt
+ - testFailToCalculateSqrtOfNegativeInt
+- **feature of SUT**, e.g.
+ - calculateSqrtOfPositiveInt
+ - failToCalculateSqrtOfNegativeInt
+- **shouldExpectedBehaviorWhenStateUnderTest**, e.g.
+ - shouldCalculateSqrWhenPositiveIntPassed
+ - shouldFailCalculateSqrIfNegativeIntPassed
 
 	</script>
 </section>
@@ -163,7 +267,7 @@ public class SearchResponseInstantiationProblemHandlerTest {
 			    transitionSpeed: 'default', // default/fast/slow
 
 			    // Transition style for full page slide backgrounds
-			    backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+			    backgroundTransition: 'zoom', // none/fade/slide/convex/concave/zoom
 
 			    // Number of slides away from the current that are visible
 			    viewDistance: 3,
