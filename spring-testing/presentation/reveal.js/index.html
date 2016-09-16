@@ -83,12 +83,6 @@
 
 
 
-## Spring simplifies unit testing
-- Dependency Injection <!-- .element: class="fragment fade-up" data-fragment-index="1" -->
-- Layered architecture <!-- .element: class="fragment fade-up" data-fragment-index="1" -->
-
-
-
 ##Mocking
 
 
@@ -99,10 +93,11 @@
 
 ## Test data source
 - Inline in test method
-- JUnit build-in Parameterized runner (TODO: demo)
-- DataProvider runner (TODO: demo)
+- JUnit build-in Parameterized runner
+- DataProvider runner
 
 
+###Parameterized runner
 ```java 
 @RunWith(Parameterized.class)
 public class SearchResponseInstantiationProblemHandlerTest {
@@ -129,14 +124,35 @@ public class SearchResponseInstantiationProblemHandlerTest {
         ...
     }
 ```
-<!-- .element: class="_stretch" -->
 
+
+###DataProvider runner
+```java
+@RunWith(DataProviderRunner.class)
+public class SearchResponseInstantiationProblemHandlerTest {
+
+    @DataProvider
+    public static Object[][] data() {
+        return new Object[][]{
+                {"find_train.json", FindTrainResponse.class},
+                {"error.json", ErrorSearchResponse.class}
+        };
+    }
+    
+    @UseDataProvider("data")
+    @Test
+    public void testDeserialize(String jsonFilename, Class<?> expectedClass) {
+        ...
+        assertThat(response, instanceOf(expectedClass));
+        ...
+    }
+```
 
 
 ## Project-specific test framework
-- Factories for example data (TODO: demo)
-- Test data sharing between SUT and collaborators (TODO: demo)
-- Custom matchers (TODO: demo)
+- Factories for example data
+- Test data sharing between SUT and collaborators
+- Custom matchers
 
 
 
@@ -182,18 +198,6 @@ public class SearchResponseInstantiationProblemHandlerTest {
 
 
 
-
-## Maven profiles
-
-
-
-
-## Code coverage
-
-
-
-
-
 ## What to test
 
 
@@ -203,7 +207,13 @@ public class SearchResponseInstantiationProblemHandlerTest {
 
 
 
-##Name matters (TODO: demo)
+##Found a bug?
+1. Write a test to reproduce (which fails)
+2. Wix a bug (test passes)
+
+
+
+##Name matters
 ```java
 public class JustTest {
 
@@ -215,8 +225,7 @@ public class JustTest {
 ```
 
 
-
-###Possible naming strategies (TODO: demo)
+###Possible naming strategies
 - **'test' + [feature of SUT]**, e.g.
  - testCalculateSqrtOfPositiveInt
  - testFailToCalculateSqrtOfNegativeInt
@@ -227,6 +236,45 @@ public class JustTest {
  - shouldCalculateSqrWhenPositiveIntPassed
  - shouldFailCalculateSqrIfNegativeIntPassed
 
+ 
+
+
+## Spring simplifies unit testing
+- Dependency Injection
+- Layered architecture
+
+
+
+##Test bootstrap
+- @ContextConfiguration
+- SpringJUnit4ClassRunner
+- @Autowired
+
+
+
+##Testing persistence layer
+- @Transactional
+- In memory DB
+
+
+
+##Testing web layer
+
+
+###Test setup
+- MockMvc & MockMvcBuilders
+- .standaloneSetup
+- .webAppContextSetup
+
+
+###Performing request & verifying
+- MockMvc & MockMvcBuilders
+- MockHttpServletRequest & MockMvcRequestBuilders
+- perform()
+- andExpect() & MockMvcResultMatchers
+- andReturn() & MockHttpServletResponse
+
+ 
 	</script>
 </section>
 
