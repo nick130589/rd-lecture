@@ -1,15 +1,16 @@
 package com.epam.rd.lecture.springtesting.core.dao;
 
 import com.epam.rd.lecture.springtesting.core.model.Product;
+
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 @Component
 public class ProductDaoImpl implements ProductDao {
-
 	@PersistenceContext
 	private EntityManager em;
 
@@ -23,4 +24,8 @@ public class ProductDaoImpl implements ProductDao {
 		return em.createQuery("SELECT p FROM Product p").getResultList();
 	}
 
+	@Override
+	public Product findById(Integer id) {
+		return em.find(Product.class, id);
+	}
 }

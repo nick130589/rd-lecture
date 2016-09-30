@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface ProductDao {
     void persist(Product product);
-
     List<Product> findAll();
+    Product findById(Integer id);
 }

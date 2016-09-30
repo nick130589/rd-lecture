@@ -42,7 +42,7 @@ public class ProductServiceImplTest {
         when(productDao.findAll()).thenReturn(products);
 
         //when
-        List<Product> actual = SUT.listAll();
+        List<Product> actual = SUT.findAll();
 
         //then
         assertThat(actual, is(products));

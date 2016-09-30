@@ -1,14 +1,14 @@
 package com.epam.rd.lecture.springtesting.core.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @Entity
 public class Product {
-
 	@Id
 	private Integer id;
 	@Column(length = 20)

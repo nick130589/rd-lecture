@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.List;
 
+@Transactional
 @Component
 public class ProductServiceImpl implements ProductService {
 
@@ -21,13 +22,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-    @Transactional
 	public void add(Product product) {
 		productDao.persist(product);
 	}
 	
 	@Override
-    @Transactional
 	public void addAll(Collection<Product> products) {
 		for (Product product : products) {
 			productDao.persist(product);
@@ -35,9 +34,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-    @Transactional
-	public List<Product> listAll() {
+	public List<Product> findAll() {
 		return productDao.findAll();
 	}
-
 }

@@ -24,7 +24,7 @@ public class Main {
 		productService.add(new Product(1, "Bulb", BigDecimal.ONE));
 		productService.add(new Product(2, "Dijone mustard", BigDecimal.ONE));
 
-		log.info("listAll before: {}", productService.listAll());
+		log.info("findAll before: {}", productService.findAll());
 
 
 		try {
@@ -36,7 +36,7 @@ public class Main {
 			log.error("error: ", ex);
 		}
 
-		log.info("listAll after: {}", productService.listAll());
+		log.info("findAll after: {}", productService.findAll());
 		
 		ctx.close();
 		

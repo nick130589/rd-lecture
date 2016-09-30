@@ -27,9 +27,17 @@
 			p:packagesToScan="com.epam.rd.lecture.springtesting.core"
             p:dataSource-ref="dataSource">
 		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="generateDdl" value="true" />
-				<property name="showSql" value="true" />
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<property name="jpaProperties">
+			<bean class="org.springframework.beans.factory.config.MapFactoryBean">
+				<property name="sourceMap">
+					<props>
+						<prop key="hibernate.hbm2ddl.auto">create</prop>
+						<prop key="hibernate.show_sql">true</prop>
+						<prop key="hibernate.format_sql">false</prop>
+					</props>
+				</property>
 			</bean>
 		</property>
 	</bean>

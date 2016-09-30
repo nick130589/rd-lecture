@@ -1,6 +1,7 @@
 package com.epam.rd.lecture.springtesting.core.dao;
 
 import com.epam.rd.lecture.springtesting.core.model.Product;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +9,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 @Transactional
 @ContextConfiguration(value = "classpath:core-context.xml")
@@ -45,5 +49,13 @@ public class ProductDaoImplTest {
 
         assertThat(actualProducts, hasSize(1));
         assertThat(actualProducts, contains(prod1));
+    }
+
+
+    @Test(expected = PersistenceException.class)
+    public void validatesProductLengthOnSave() {
+        Product prod = new Product(1, "_______ longer than column length constraint _______", BigDecimal.ONE);
+        em.persist(prod);
+        productDao.findAll();
     }
 }

@@ -7,13 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 import java.util.List;
 
+@Transactional
 public interface ProductService {
-    @Transactional
     void add(Product product);
-
-    @Transactional
     void addAll(Collection<Product> products);
-
-    @Transactional
-    List<Product> listAll();
+    List<Product> findAll();
 }
