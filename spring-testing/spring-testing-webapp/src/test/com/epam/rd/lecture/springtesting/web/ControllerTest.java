@@ -20,7 +20,6 @@ import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -85,7 +84,8 @@ public class ControllerTest {
                  .andExpect(jsonPath("$", Matchers.hasSize(2)))
                  .andExpect(jsonPath("$[0].name").value("prod1"))
                  .andExpect(jsonPath("$..cost").value(contains(42, 42)))
-                 .andExpect(status().isOk());
-    }
+;    }
+
+
 
 }

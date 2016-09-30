@@ -3,9 +3,10 @@ package com.epam.rd.lecture.springtesting.web;
 import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data @AllArgsConstructor
+@AllArgsConstructor
+@Getter
 public class ProductDto {
     private Integer id;
     private String name;
