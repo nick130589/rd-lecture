@@ -1,13 +1,11 @@
 package com.epam.rd.lecture.springtesting.web;
 
-import com.epam.rd.lecture.springtesting.core.model.Product;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,8 +16,10 @@ public class Controller {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Product> getAllProducts() {
-        return Collections.singletonList(new Product(1, "prod", BigDecimal.ONE));
+    public List<ProductDto> getAllProducts() {
+        List<ProductDto> products = new ArrayList<>();
+        products.add(new ProductDto(1, "prod", BigDecimal.ONE));
+        return products;
     }
 
 }

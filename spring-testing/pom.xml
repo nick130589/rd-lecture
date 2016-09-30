@@ -24,7 +24,7 @@
         <jdk.version>1.8</jdk.version>
         <hibernate.version>5.0.2.Final</hibernate.version>
         <h2.jdbc.driver.version>1.4.189</h2.jdbc.driver.version>
-        <spring.version>4.2.3.RELEASE</spring.version>
+        <spring.version>4.3.3.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -116,7 +116,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.1.6.RELEASE</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
