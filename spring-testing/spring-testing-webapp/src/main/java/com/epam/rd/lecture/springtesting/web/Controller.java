@@ -18,7 +18,8 @@ public class Controller {
     @RequestMapping(method = RequestMethod.GET)
     public List<ProductDto> getAllProducts() {
         List<ProductDto> products = new ArrayList<>();
-        products.add(new ProductDto(1, "prod", BigDecimal.ONE));
+        products.add(new ProductDto(111, "prod1", BigDecimal.valueOf(42)));
+        products.add(new ProductDto(222, "prod2", BigDecimal.valueOf(42)));
         return products;
     }
 
