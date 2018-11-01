@@ -20,6 +20,11 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+		<style>
+            .reveal pre code {
+                max-height: 600px;
+            }		
+            </style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -76,31 +81,101 @@
 <!-- .slide: data-transition="zoom-out" -->
 
 
+## Why and what to test
+
+
+## How to test
+- isolation
+- single test method - single SUT execution
+- single assert per test case (preffered)
+
+
+
+### Found a bug?
+1. Write a test to reproduce (test should fail)
+2. Fix a bug (test passes)
+
+
+
 ## Tools
 - Junit 5
-- [Mockito](https://site.mockito.org/)
-- [AssertJ](http://joel-costigliola.github.io/assertj/)
+- ~~Junit 4~~
+- [Spock](http://spockframework.org/) (groovy)
 
 
-### Alternative tools
-- ~~JUnit 4~~
-- [JMockit](http://jmockit.github.io/), PowerMock (with Mockito)
-- ~~Hamcrest~~, [Truth (by Google)](http://google.github.io/truth/)
+## Name matters
+```java
+public class JustTest {
 
+    @Test
+    public void WTF() {
+    	...
+    }
+}
+```
+
+
+### Possible naming strategies
+- **'test' + [feature of SUT]**, e.g.
+ - testCalculateSqrtOfPositiveInt
+ - testFailToCalculateSqrtOfNegativeInt
+- **feature of SUT**, e.g.
+ - calculatesSqrtOfPositiveInt
+ - failsToCalculateSqrtOfNegativeInt
+- **shouldExpectedBehaviorWhenStateUnderTest**, e.g.
+ - shouldCalculateSqrWhenPositiveIntPassed
+ - shouldFailToCalculateSqrIfNegativeIntPassed
+
+
+
+## Test structure
+- AAA: Arrange, Act, Assert
+- Given, When, Then
+
+
+```java
+
+class CalculatorTest {
+    
+    @Test
+    void calculatesSum() {
+        //GIVEN
+        ...
+
+        //WHEN
+        ...
+
+        //THEN
+        ...
+    }
+}
+```
 
 
 ## Mocking
 
 
+### Tools
+- [Mockito](https://site.mockito.org/)
+- [JMockit](http://jmockit.github.io/)
+- PowerMock (with Mockito)
 
-## To mock or not to mock?
+
+
+## Assert
+
+### Tools
+- [AssertJ](http://joel-costigliola.github.io/assertj/)
+- [Truth (by Google)](http://google.github.io/truth/)
+- ~~Hamcrest~~
 
 
 
-## Test data source
+## Test data sources
 - Inline in test method
-- JUnit build-in Parameterized runner
-- DataProvider runner
+- Junit 5 ParameterizedTest
+- JUnit 4 build-in Parameterized runner (obsolete, Junit 4)
+- DataProvider runner (obsolete, used with Junit 4)
 
 
 ### Parameterized runner
@@ -203,53 +278,6 @@ public class SearchResponseInstantiationProblemHandlerTest {
 ```
 
 
-
-## What to test
-
-
-## How to test
-- isolation
-- single test method - single SUT execution (preffered)
-
-
-
-## Found a bug?
-1. Write a test to reproduce (which fails)
-2. Wix a bug (test passes)
-
-
-
-## Name matters
-```java
-public class JustTest {
-
-    @Test
-    public void WTF() {
-    	...
-    }
-}
-```
-
-
-### Possible naming strategies
-- **'test' + [feature of SUT]**, e.g.
- - testCalculateSqrtOfPositiveInt
- - testFailToCalculateSqrtOfNegativeInt
-- **feature of SUT**, e.g.
- - calculateSqrtOfPositiveInt
- - failToCalculateSqrtOfNegativeInt
-- **shouldExpectedBehaviorWhenStateUnderTest**, e.g.
- - shouldCalculateSqrWhenPositiveIntPassed
- - shouldFailCalculateSqrIfNegativeIntPassed
-
-
-
-## Test structure
-- AAA: Arrange, Act, Assert
-- Given, When, Then
-
-
-
 ## Traps and pitfalls
 - Never: LocalDateTime.now(), new Date() or similar
 - Try to avoid: Random.nextInt() and similar (if used provide a way to repoduce)
@@ -264,7 +292,8 @@ public class JustTest {
 
 ## Test bootstrap
 - @ContextConfiguration
-- SpringJUnit4ClassRunner
+- @ExtendWith(SpringExtension.class) (Junit 5)
+- ~~SpringJUnit4ClassRunner (Junit 4)~~
 - @Autowired
 
 
