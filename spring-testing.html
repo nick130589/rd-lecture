@@ -76,19 +76,24 @@
 <!-- .slide: data-transition="zoom-out" -->
 
 
-##Tools
-- JUnit
-- Mockito (+PowerMock)
-- JMockit
-- Hamcrest
+## Tools
+- Junit 5
+- [Mockito](https://site.mockito.org/)
+- [AssertJ](http://joel-costigliola.github.io/assertj/)
+
+
+### Alternative tools
+- ~~JUnit 4~~
+- [JMockit](http://jmockit.github.io/), PowerMock (with Mockito)
+- ~~Hamcrest~~, [Truth (by Google)](http://google.github.io/truth/)
 
 
 
-##Mocking
+## Mocking
 
 
 
-##To mock or not to mock?
+## To mock or not to mock?
 
 
 
@@ -98,7 +103,7 @@
 - DataProvider runner
 
 
-###Parameterized runner
+### Parameterized runner
 ```java 
 @RunWith(Parameterized.class)
 public class SearchResponseInstantiationProblemHandlerTest {
@@ -127,7 +132,7 @@ public class SearchResponseInstantiationProblemHandlerTest {
 ```
 
 
-###DataProvider runner
+### DataProvider runner
 ```java
 @RunWith(DataProviderRunner.class)
 public class SearchResponseInstantiationProblemHandlerTest {
@@ -157,17 +162,17 @@ public class SearchResponseInstantiationProblemHandlerTest {
 
 
 
-##Test code reuse
+## Test code reuse
 - Create separate project with test-related code
 - Package test classes into test-jar
 
 
-###Create separate project with test-related code
+### Create separate project with test-related code
 - Pros: can be used as any other maven dependecy without any problem
 - Cons: requires creating a dedicated project for test-related code
 
 
-###Package test classes into test-jar
+### Package test classes into test-jar
 - Pros: simplicity
 - Cons: no transitive test dependencies, need to manually add test-scoped deps
 ```xml
@@ -186,7 +191,7 @@ public class SearchResponseInstantiationProblemHandlerTest {
 ```
 
 
-###Use created test-jar
+### Use created test-jar
 ```xml
 <dependency>
   <groupId>groupId</groupId>
@@ -208,13 +213,13 @@ public class SearchResponseInstantiationProblemHandlerTest {
 
 
 
-##Found a bug?
+## Found a bug?
 1. Write a test to reproduce (which fails)
 2. Wix a bug (test passes)
 
 
 
-##Name matters
+## Name matters
 ```java
 public class JustTest {
 
@@ -226,7 +231,7 @@ public class JustTest {
 ```
 
 
-###Possible naming strategies
+### Possible naming strategies
 - **'test' + [feature of SUT]**, e.g.
  - testCalculateSqrtOfPositiveInt
  - testFailToCalculateSqrtOfNegativeInt
@@ -237,7 +242,18 @@ public class JustTest {
  - shouldCalculateSqrWhenPositiveIntPassed
  - shouldFailCalculateSqrIfNegativeIntPassed
 
- 
+
+
+## Test structure
+- AAA: Arrange, Act, Assert
+- Given, When, Then
+
+
+
+## Traps and pitfalls
+- Never: LocalDateTime.now(), new Date() or similar
+- Try to avoid: Random.nextInt() and similar (if used provide a way to repoduce)
+
 
 
 ## Spring simplifies unit testing
@@ -246,29 +262,29 @@ public class JustTest {
 
 
 
-##Test bootstrap
+## Test bootstrap
 - @ContextConfiguration
 - SpringJUnit4ClassRunner
 - @Autowired
 
 
 
-##Testing persistence layer
+## Testing persistence layer
 - @Transactional
 - In memory DB
 
 
 
-##Testing web layer
+## Testing web layer
 
 
-###Test setup
+### Test setup
 - MockMvc & MockMvcBuilders
 - .standaloneSetup
 - .webAppContextSetup
 
 
-###Performing request & verifying
+### Performing request & verifying
 - MockMvc & MockMvcBuilders
 - MockHttpServletRequest & MockMvcRequestBuilders
 - perform()
