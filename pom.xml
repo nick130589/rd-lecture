@@ -102,6 +102,12 @@
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.0.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 
